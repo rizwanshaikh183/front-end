@@ -5,7 +5,7 @@ import Electronics from './Suv';
 
 import Item from './Item';
 import Upload from './Upload';
-import Mobile from './Mobile';
+
 import Register from './Register';
 import Login from './Login';
 import logo from "./logo.svg"
