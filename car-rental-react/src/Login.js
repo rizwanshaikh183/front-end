@@ -34,6 +34,7 @@ function Login()
   const [name, setName] = useState("");
   const [pass, setPass] = useState("");
   const [license_no,setLicense_no]=useState("");
+    const [email,setEmail]=useState("");
   const navigate = useNavigate();
 function submitForm(e) {
   e.preventDefault();
@@ -41,13 +42,15 @@ function submitForm(e) {
   axios.post("http://localhost:4000/user/login", { name, pass ,license_no})
     .then(result => {
       // This runs only if status is 200
-      localStorage.setItem("user", name)
+      localStorage.setItem("user",JSON.stringify({name,license_no,pass}));
       alert(result.data.message);
-         // ✅ Allow only "rizwan shaikh" to go to /upload
+         //  Allow only "admin" to go to /upload
         if (name === "admin") {
           navigate("/upload");
+           window.location.reload();
         } else {
           navigate("/"); // or maybe navigate to home/dashboard
+          window.location.reload();
         }
     })
     .catch(err => {

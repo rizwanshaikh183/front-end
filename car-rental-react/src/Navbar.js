@@ -8,7 +8,7 @@ import Upload from './Upload';
 
 import Register from './Register';
 import Login from './Login';
-import logo from "./logo.svg"
+import logo from "./logo.png"
 
 import Sedan from './Sedan';
 import Suv from './Suv';
@@ -26,19 +26,29 @@ import {
 } from "./NavbarElements";
 import Card from './Card';
 import { useNavigate } from "react-router-dom";
-
+import Booking from './Booking';
+import { NavDropdown } from 'react-bootstrap';
+import Mybooking from './Mybooking';
+import { FlexboxGrid } from 'rsuite';
+import p from './p.png'
+const user = JSON.parse(localStorage.getItem("user")); // get and parse once
 const Navbar = () => {
     const navigate = useNavigate()
     function logout() {
-        localStorage.clear();
+        // localStorage.clear();
+        localStorage.removeItem("user");
         navigate("/")
+        console.log("logout");
+        window.location.reload();
     }
     return (
         <>
             <Nav>
                 <Bars />
 
-                <NavMenu>
+                <NavMenu
+
+                >
                     <NavLink to="/" >
                         Home
                     </NavLink>
@@ -71,33 +81,62 @@ const Navbar = () => {
                                 </NavBtnLink>
                             </div> :
 
-                            <NavBtnLink to="/logout" onClick={() => logout()}>
-                                Logout
-                            </NavBtnLink>
+                            <div>
+                                <NavBtnLink to="/logout" onClick={() => logout()}>
+                                    Logout
+                                </NavBtnLink>
+
+
+                            </div>
+
 
                     }
-                    <NavBtnLink to="/card">
-                        Cart
-                    </NavBtnLink>
+
                     {
-                        localStorage.getItem("user") === "admin" ? (
-                            <NavBtnLink to="/upload">Upload</NavBtnLink>
-                        ) : null
+                        user?.name === "admin" || !user ? null :
+                            <div>
+                                <NavBtnLink to="/card" >
+                                    Cart
+                                </NavBtnLink>
+                                <NavBtnLink to="/Mybooking" >
+                                    Mybooking
+                                </NavBtnLink>
+                            </div>
+
                     }
+                    {user?.name === "admin" && (
+                        <NavDropdown title="Admin controls" id="basic-nav-dropdown" style={{
+                            color: "white", marginRight:
+                                "20px", margin: "10px ", fontSize: "20px", fontWeight: "bold", cursor: "pointer", padding: "10px"
+                        }}>
+
+
+                            <NavBtnLink to="/upload">Upload</NavBtnLink>
+                        </NavDropdown>
+                    )}
+
 
 
 
                 </NavBtn>
-                <img src={logo} style={{ width: "50px", height: "50px" }}></img>
-                <label>{localStorage.getItem("user")}</label>
+                <div style={{ display: "flex", alignItems: "center",  flexDirection: "column",gap:"-5px",alignContent:"right",alignSelf:"right" }}>
+                    <img src={p} style={{ width: "50px", height: "50px" }}></img>
+
+                    <label style={{ color: "white", fontSize: "20px", fontWeight: "bold", }} >
+                        {user ? user.name : "user not found"
+
+                        }
+                    </label>
+                </div>
+
             </Nav>
             <Routes>
                 <Route path='/' Component={Home}></Route>
                 <Route path='/suv' Component={Suv}></Route>
                 <Route path='/sedan' Component={Sedan}></Route>
                 <Route path='/sports' Component={Sports}></Route>
-                 <Route path='/luxury' Component={Luxury}></Route>
-                  <Route path='/vintage' Component={Vintage}></Route>
+                <Route path='/luxury' Component={Luxury}></Route>
+                <Route path='/vintage' Component={Vintage}></Route>
 
                 <Route path='/item' Component={Item}></Route>
                 <Route path='/upload' Component={Upload}></Route>
@@ -106,7 +145,9 @@ const Navbar = () => {
                 <Route path='/card' Component={Card}></Route>
                 <Route path='/logout' Component={Home}></Route>
                 <Route path='/upload' Component={Upload}></Route>
-                
+                <Route path='/card/Booking' Component={Booking}></Route>
+                <Route path='/Mybooking' Component={Mybooking}></Route>
+
             </Routes>
         </>
     );
