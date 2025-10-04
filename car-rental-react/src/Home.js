@@ -29,7 +29,7 @@ function Home() {
   function singleData(pid) {
     navigate("/item", { state: pid })
   }
-  function addtocard(id, title, description, r_price, image,category) {
+  function addtocard(id, title, description, r_price, image, category) {
     var url = "http://localhost:4000/prd/card"//
 
     var formdata = new FormData();
@@ -39,7 +39,7 @@ function Home() {
     formdata.append("description", description);
     formdata.append("r_price", Number(r_price));
     formdata.append("image", image);
-     formdata.append("category", category);
+    formdata.append("category", category);
     axios.post(url, formdata).then((result) => {
       console.log(result.data)
       alert("Add to card Sucessfully")
@@ -65,29 +65,32 @@ function Home() {
                   <MDBCardTitle style={{ color: "red" }}>{item.title}</MDBCardTitle>
                   <MDBCardTitle style={{ color: "green" }}>{item.r_price} Rs</MDBCardTitle>
                   <MDBCardTitle style={{ color: "blue" }}>{item.category}</MDBCardTitle>
-                     <MDBCardTitle style={{ color: "blue" }}>{item.availability}</MDBCardTitle>
+                  <MDBCardTitle style={{ color: "blue" }}>{item.availability}</MDBCardTitle>
                   <MDBCardText>
                     {item.description.substring(0, 100)}
                   </MDBCardText>
-                {/* <Singleprd
+                  {/* <Singleprd
                   pid={item.id}
                  ></Singleprd> */}
-                  <MDBBtn style={{ width: "130px", height: "36px" }} onClick={() => singleData(item.id)}>View Details</MDBBtn>&nbsp;&nbsp;
+                  <MDBBtn style={{
+                    width: "130px", height: "36px", backgroundColor: "#d46422ff",   // no semicolon here
+                    color: "white", border: "1px solid #d46422ff "
+                  }} onClick={() => singleData(item.id)}>View Details</MDBBtn>&nbsp;&nbsp;
                   <MDBBtn style={{ width: "130px", height: "36px" }} onClick={() => addtocard(
-                    
+
                     Number(item.id),          // ensure id is a number
                     item.title,
                     item.description,
-                   
+
                     Number(item.r_price),     // ensure r_price is a number
                     item.image,
-                     item.category,
-                    )
-                    }>
+                    item.category,
+                  )
+                  }>
 
-                      AddtoCart
-                    
-                    </MDBBtn>
+                    AddtoCart
+
+                  </MDBBtn>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

@@ -27,10 +27,11 @@ import {
 import Card from './Card';
 import { useNavigate } from "react-router-dom";
 import Booking from './Booking';
-import { NavDropdown } from 'react-bootstrap';
+import { NavDropdown, NavItem } from 'react-bootstrap';
 import Mybooking from './Mybooking';
 import { FlexboxGrid } from 'rsuite';
 import p from './p.png'
+import carlogo from './carlogo1.png'
 const user = JSON.parse(localStorage.getItem("user")); // get and parse once
 const Navbar = () => {
     const navigate = useNavigate()
@@ -49,6 +50,15 @@ const Navbar = () => {
                 <NavMenu
 
                 >
+                    <NavItem>
+                        {/* <img src={carlogo} style={{ width: "80px", height: "80px", marginRight: "20px" }}></img> */}
+                        <label style={{ color: "white", fontSize: "25px", 
+                            fontWeight: "bolder", marginLeft: "30px",marginRight:"20px",fontFamily:"cursive" }} >
+                            Car hai "क्या"
+                        </label>
+                    </NavItem>
+                     
+                            
                     <NavLink to="/" >
                         Home
                     </NavLink>

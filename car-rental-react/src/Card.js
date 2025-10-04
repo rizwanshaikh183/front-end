@@ -111,9 +111,9 @@ function Card() {
                     <MDBCardTitle>{item.title}</MDBCardTitle>
                     <MDBCardTitle>{item.r_price} Rs</MDBCardTitle>
                                         <MDBCardTitle>{item.category} </MDBCardTitle>
-                    <MDBBtn onClick={ ()=>goBooking(item) }>Book now</MDBBtn>&nbsp;&nbsp;
+                    <MDBBtn style={{backgroundColor:" #d46422ff;"}} onClick={ ()=>goBooking(item) }>Book now</MDBBtn>&nbsp;&nbsp;
                   
-                    <MDBBtn onClick={() => deleteCard(item.id)}>Remove Card</MDBBtn>
+                    <MDBBtn  onClick={() => deleteCard(item.id)}>Remove Card</MDBBtn>
 
                   </MDBCardBody>
                 </MDBCol>
