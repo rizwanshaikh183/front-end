@@ -13,10 +13,11 @@ import {
 } from 'mdb-react-ui-kit';
 import Footer from "./Footer";
 import { useNavigate } from "react-router-dom";
-import Singleprd from "./Singleprd";
 
-function Home() {
+
+function Admindeleteprd() {
   const [apidata, setData] = useState([])
+    const [count, setcount] = useState([])
   const navigate = useNavigate()
   useEffect(() => {
     fetch("http://localhost:4000/").then((result) => {//
@@ -26,24 +27,22 @@ function Home() {
       })
     })
   }, [])
-  function singleData(pid) {
-    navigate("/item", { state: pid })
-  }
-  function addtocard(id, title, description, r_price, image, category) {
-    var url = "http://localhost:4000/prd/card"//
 
-    var formdata = new FormData();
+ function deleteCard(car_id) {
+    const url = "http://localhost:4000/" + car_id;//
+    axios.delete(url).then((result) => {
+      //again call the api and get the data to auto refresh after delete and remove item from
+      fetch("http://localhost:4000/").then((result) => {//
 
-    formdata.append("id", Number(id));
-    formdata.append("title", title);
-    formdata.append("description", description);
-    formdata.append("r_price", Number(r_price));
-    formdata.append("image", image);
-    formdata.append("category", category);
-    axios.post(url, formdata).then((result) => {
-      console.log(result.data)
-      alert("Add to card Sucessfully")
+        result.json().then((data) => {
 
+          setData(data)
+          setcount(data.length)
+
+        })
+      })
+
+   
     })
   }
   return (
@@ -74,28 +73,10 @@ function Home() {
                   {/* <Singleprd
                   pid={item.id}
                  ></Singleprd> */}
-                  <MDBBtn 
-                  style={{
-                    width: "130px", height: "36px", backgroundColor: "#d46422ff",   // no semicolon here
-                    color: "white", border: "1px solid #d46422ff "
-                  }} 
                   
-                  onClick={() => singleData(item.id)}>View Details</MDBBtn>&nbsp;&nbsp;
-                  <MDBBtn style={{ width: "130px", height: "36px" }} onClick={() => addtocard(
+                  <MDBBtn  onClick={() => deleteCard(item.id)}>Remove </MDBBtn>
 
-                    Number(item.id),          // ensure id is a number
-                    item.title,
-                    item.description,
-
-                    Number(item.r_price),     // ensure r_price is a number
-                    item.image,
-                    item.category,
-                  )
-                  }>
-
-                    AddtoCart
-
-                  </MDBBtn>
+                   
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
@@ -106,4 +87,4 @@ function Home() {
     </div>
   )
 }
-export default Home
+export default Admindeleteprd;

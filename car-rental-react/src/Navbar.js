@@ -15,6 +15,7 @@ import Suv from './Suv';
 import Sports from './Sports';
 import Luxury from './Luxury';
 import Vintage from './Vintage';
+import Allbooking from './Allbookings';
 
 import {
     Nav,
@@ -32,6 +33,7 @@ import Mybooking from './Mybooking';
 import { FlexboxGrid } from 'rsuite';
 import p from './p.png'
 import carlogo from './carlogo1.png'
+import Admindeleteprd from './Admindeleteprd';
 const user = JSON.parse(localStorage.getItem("user")); // get and parse once
 const Navbar = () => {
     const navigate = useNavigate()
@@ -52,13 +54,15 @@ const Navbar = () => {
                 >
                     <NavItem>
                         {/* <img src={carlogo} style={{ width: "80px", height: "80px", marginRight: "20px" }}></img> */}
-                        <label style={{ color: "white", fontSize: "25px", 
-                            fontWeight: "bolder", marginLeft: "30px",marginRight:"20px",fontFamily:"cursive" }} >
+                        <label style={{
+                            color: "white", fontSize: "25px",
+                            fontWeight: "bolder", marginLeft: "30px", marginRight: "20px", fontFamily: "cursive"
+                        }} >
                             Car hai "क्या"
                         </label>
                     </NavItem>
-                     
-                            
+
+
                     <NavLink to="/" >
                         Home
                     </NavLink>
@@ -121,7 +125,11 @@ const Navbar = () => {
                         }}>
 
 
-                            <NavBtnLink to="/upload">Upload</NavBtnLink>
+                           
+                            <NavBtnLink to="/delete">remove car</NavBtnLink><br></br><br></br>
+                            <NavBtnLink to="/allbooking">All bookings</NavBtnLink><br></br><br></br>
+                            
+                             <NavBtnLink to="/upload">Upload</NavBtnLink>
                         </NavDropdown>
                     )}
 
@@ -129,7 +137,7 @@ const Navbar = () => {
 
 
                 </NavBtn>
-                <div style={{ display: "flex", alignItems: "center",  flexDirection: "column",gap:"-5px",alignContent:"right",alignSelf:"right" }}>
+                <div style={{ display: "flex", alignItems: "center", flexDirection: "column", gap: "-5px", alignContent: "right", alignSelf: "right" }}>
                     <img src={p} style={{ width: "50px", height: "50px" }}></img>
 
                     <label style={{ color: "white", fontSize: "20px", fontWeight: "bold", }} >
@@ -157,6 +165,8 @@ const Navbar = () => {
                 <Route path='/upload' Component={Upload}></Route>
                 <Route path='/card/Booking' Component={Booking}></Route>
                 <Route path='/Mybooking' Component={Mybooking}></Route>
+                <Route path='/delete' Component={Admindeleteprd}></Route>
+                 <Route path='/allbooking' Component={Allbooking}></Route>
 
             </Routes>
         </>
